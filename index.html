@@ -1,0 +1,162 @@
+<!-- INSPIRED BY : FINGER TAP BATTLE BY PAVEL ALEXEEV -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(196, 192, 192);
+        }
+
+        #container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+        }
+
+        #container .player {
+            width: 50%;
+            display: none;
+        }
+
+        #container #player1 {
+            background-color: rgb(255, 0, 0);
+        }
+
+        #container #player2 {
+            background-color: rgb(0, 132, 255);
+        }
+
+        #container #btnStart {
+            width: 20%;
+            height: 20%;
+            font-size: 200%;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            background: linear-gradient(to right, rgb(255, 0, 0), rgb(0, 132, 255));
+            color: white;
+        }
+
+        #container .info {
+            font-size: 200%;
+            color: white;
+        }
+
+        @media (min-width:320px) {
+            #container .player {
+                width: 80%;
+            }
+
+            #container #btnStart {
+                width: 50%;
+            }
+        }
+
+        @media (min-width:960px) {
+            #container #btnStart {
+                font-size: 300%;
+            }
+
+            #container .info {
+                font-size: 250%;
+            }
+        }
+
+        @media (min-width:1024px) {
+            #container .player {
+                width: 80%;
+            }
+
+            #container #btnStart {
+                width: 40%;
+                font-size: 300%;
+            }
+
+            #container .info {
+                font-size: 250%;
+            }
+        }
+
+        @media (min-width:1280px) {
+            #container #btnStart {
+                font-size: 300%;
+            }
+
+            #container .info {
+                font-size: 250%;
+            }
+        }
+    </style>
+    <title>Simple Finger Tap Battle Game</title>
+</head>
+<body>
+    <div id="container">
+        <div class="player" id="player1"></div>
+        <h1 class="info" style="display: none;transform: scale(-1, -1);margin-bottom: 30px;">RED WIN</h1>
+        <button id="btnStart">TAP TO START</button>
+        <h1 class="info" style="display: none;margin-top: 30px;">RED WIN</h1>
+        <div class="player" id="player2"></div>
+    </div>
+    <script>
+        var heightPlayer1 = $("#player1").height()
+        var heightPlayer2 = $("#player2").height()
+
+        $("#btnStart").click(function () {
+            $("#player1").height("50%")
+            $("#player2").height("50%")
+            heightPlayer1 = $("#player1").height()
+            heightPlayer2 = $("#player2").height()
+            $("#btnStart").hide(1000)
+            $("#player1").fadeToggle(1000)
+            $("#player2").fadeToggle(1000)
+            $(".info").hide(1000)
+        })
+
+        $("#player1").click(function () {
+            $("#player1").height(heightPlayer1 += 50)
+            $("#player2").height(heightPlayer2 -= 50)
+            if (heightPlayer2 <= 0) {
+                showWinner("RED WIN", "linear-gradient(to right, rgb(255, 0, 0), rgb(197, 126, 126))")
+                reset()
+            }
+        })
+
+        $("#player2").click(function () {
+            $("#player2").height(heightPlayer2 += 50)
+            $("#player1").height(heightPlayer1 -= 50)
+            if (heightPlayer1 <= 0) {
+                showWinner("BLUE WIN", "linear-gradient(to right, rgb(0, 132, 255), rgb(0, 204, 255))")
+                reset()
+            }
+        })
+
+        function reset() {
+            $("#btnStart").show(1000)
+            $("#player1").hide(1000)
+            $("#player2").hide(1000)
+        }
+
+        function showWinner(winner, color) {
+            $("h1").empty()
+            $("h1").append(winner)
+            $(".info").css("background", color)
+            $(".info").show(1000)
+        }
+    </script>
+</body>
+
+</html>
